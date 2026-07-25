@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>スマホで簡単なアプリやゲームをつくってみよう</title>
+<title>スマホで簡単なゲームをつくってみよう</title>
 <style>
   :root {
     --cream: #FBF6EE;
@@ -258,6 +258,74 @@
     padding: 0 .15em;
   }
   .slide.ember .placeholder { border-color: var(--ember-accent); color: var(--ember-accent); }
+
+  /* intro slide with image */
+  .slide.intro {
+    flex-direction: row;
+    align-items: center;
+    gap: clamp(30px, 4.5vw, 72px);
+  }
+  .intro-text { flex: 1 1 52%; }
+  .intro-media {
+    flex: 1 1 44%;
+    max-width: 46%;
+  }
+  .intro-media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 22px;
+    border: 2px solid var(--line);
+    box-shadow: 0 26px 60px -28px rgba(33,30,41,.7);
+  }
+  /* stack vertically on portrait / narrow screens */
+  @media (max-aspect-ratio: 1/1) {
+    .slide.intro { flex-direction: column; justify-content: center; }
+    .intro-media { max-width: min(80%, 460px); }
+  }
+
+  /* prompt full-text slides */
+  .slide.prompt { justify-content: flex-start; padding-top: clamp(60px, 8vw, 120px); }
+  .slide.prompt h2 { font-size: clamp(28px, 4.4vw, 60px); }
+  .prompt-block {
+    margin-top: clamp(20px, 2.6vw, 38px);
+    background: #fff;
+    border: 2px solid var(--line);
+    border-left: 6px solid var(--accent);
+    border-radius: 0 20px 20px 0;
+    padding: clamp(22px, 2.8vw, 42px) clamp(26px, 3.2vw, 48px);
+    box-shadow: 0 18px 40px -28px rgba(33,30,41,.5);
+    font-size: clamp(18px, 2vw, 29px);
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .prompt-block p + p { margin-top: .7em; }
+  .prompt-block ul {
+    list-style: none;
+    margin-top: .5em;
+    display: flex;
+    flex-direction: column;
+    gap: .55em;
+  }
+  .prompt-block li {
+    position: relative;
+    padding-left: 1.3em;
+  }
+  .prompt-block li::before {
+    content: "–";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 800;
+  }
+  .prompt-block.dense { font-size: clamp(16px, 1.7vw, 24px); }
+  .prompt-block .final-line {
+    margin-top: .9em;
+    padding-top: .7em;
+    border-top: 2px dashed var(--line);
+    font-weight: 700;
+  }
 </style>
 </head>
 <body>
@@ -268,7 +336,7 @@
   <!-- 1. Title -->
   <section class="slide active">
     <div class="big-emoji">📱✨🎮</div>
-    <h1>スマホで<br>簡単なアプリやゲームを<br><span class="accent">つくってみよう</span></h1>
+    <h1>スマホで<br>簡単なゲームを<br><span class="accent">つくってみよう</span></h1>
     <div class="title-meta">
       <span class="chip">ムーブフェスタ</span>
       <span>AI体験広場</span>
@@ -278,24 +346,36 @@
   </section>
 
   <!-- 2. 自己紹介 -->
-  <section class="slide">
-    <div class="kicker">はじめまして</div>
-    <h2><ruby>山口<rt>やまぐち</rt></ruby> <ruby>征啓<rt>ゆきひろ</rt></ruby> です</h2>
-    <p class="sub">ふだんは <span class="accent">地獄のAI</span> をつくっています。</p>
+  <section class="slide intro">
+    <div class="intro-text">
+      <div class="kicker">はじめまして</div>
+      <h2><ruby>山口<rt>やまぐち</rt></ruby> <ruby>征啓<rt>ゆきひろ</rt></ruby> です</h2>
+      <p class="sub">ふだんは <span class="accent">地獄のAI</span> をつくっています。</p>
+    </div>
+    <figure class="intro-media">
+      <img src="assets/slides/emma.jpg" alt="地獄の玉座に座る閻魔大王のイラスト">
+    </figure>
   </section>
 
   <!-- 3. ChatGPTって？ -->
   <section class="slide">
     <div class="kicker">ChatGPTって？</div>
     <h2>スマホに<br><span class="accent">話しかけるだけ。</span></h2>
-    <div class="bubble">「子どもたちに、ひとことあいさつして？」</div>
+    <div class="bubble">「みんなに、ひとことあいさつして？」</div>
     <p class="sub">むずかしいソフトも、コードも、パソコンも いりません。</p>
   </section>
 
-  <!-- 4. ゲームをつくる -->
+  <!-- 4. まずはクイズ -->
+  <section class="slide">
+    <div class="kicker">まずは肩ならし</div>
+    <h2>AIに<br><span class="accent">クイズ</span>を出してもらおう</h2>
+    <div class="bubble">「北九州に関するクイズを出して？」</div>
+  </section>
+
+  <!-- 5. ゲームをつくる -->
   <section class="slide">
     <div class="kicker">やってみる</div>
-    <h2>スマホで<br><span class="accent">“遊べるゲーム”</span> をつくる</h2>
+    <h2>つぎは、スマホで<br><span class="accent">“遊べるゲーム”</span> をつくる</h2>
     <p class="sub">あなたが主人公の、ぼうけん物語。<br>AIが “ゲームマスター” になって、いっしょにお話をつくります。</p>
   </section>
 
@@ -306,6 +386,62 @@
     <div class="card">
       むずかしいプログラムは、ひとつも書いていません。<br>
       <b>「こういうゲームにして」</b>と、ふつうの言葉で頼んだだけ。
+    </div>
+  </section>
+
+  <!-- 5b. プロンプト全文 (1/4) -->
+  <section class="slide prompt">
+    <div class="kicker">これが、その全文</div>
+    <h2>実際に使った<br><span class="accent">プロンプト</span>を見てみよう</h2>
+    <div class="prompt-block">
+      <p>あなたは、私が主人公のぼうけん物語を作る語り手です。</p>
+      <p>最初に<br>1. 名前<br>2. 好きなものを1つ<br>を聞いてから物語を始めてください。</p>
+    </div>
+  </section>
+
+  <!-- 5c. プロンプト全文 (2/4) -->
+  <section class="slide prompt">
+    <div class="kicker">プロンプトの中身 ・ ルール</div>
+    <h2>## <span class="accent">ルール</span></h2>
+    <div class="prompt-block dense">
+      <ul>
+        <li>全5場面。各場面は2〜3回会話してから次へ進む。</li>
+        <li>主人公は私。名前はそのまま使う。</li>
+        <li>好きなものを毎場面に登場させ、最後はそれが問題解決の鍵になる。</li>
+        <li>明るくやさしい物語にし、怖い・痛い・悲しい展開はしない。</li>
+        <li>各場面に話し相手を1人登場させる。その相手は質問をし、私が質問したら物語外の雑談も含めてキャラクターとして答える。</li>
+        <li>急いで進めず、物語より会話を楽しむ。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5d. プロンプト全文 (3/4) -->
+  <section class="slide prompt">
+    <div class="kicker">プロンプトの中身 ・ 書き方</div>
+    <h2>## <span class="accent">書き方</span></h2>
+    <div class="prompt-block dense">
+      <ul>
+        <li>1回3〜4文、小学校低学年向けの言葉で書く。</li>
+        <li>各場面の先頭に「🌟 ぼうけん 1 / 5」のように現在の進行を表示する。</li>
+        <li>毎回「どうする？」と3つの番号付き選択肢を出す。</li>
+        <li>3番は必ず、その場面の相手と話す・聞く行動にする。</li>
+        <li>選択肢は短く具体的に書く。</li>
+        <li>最後に「じぶんで かんがえたり、はなしかけたり してもいいよ！」と添える。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5e. プロンプト全文 (4/4) -->
+  <section class="slide prompt">
+    <div class="kicker">プロンプトの中身 ・ 終わり</div>
+    <h2>## <span class="accent">終わり</span></h2>
+    <div class="prompt-block">
+      <ul>
+        <li>5場面目で好きなものを使って問題を解決し、『タイトル』を付けて「おしまい」と書く。</li>
+        <li>「おわりにして」と言われたら途中でも終了する。</li>
+        <li>物語が終わったら、物語全体を表す1枚のイラストを作る（セリフ・文字・選択肢は入れない）。</li>
+      </ul>
+      <p class="final-line">では、名前を聞くところから始めてください。</p>
     </div>
   </section>
 
@@ -320,14 +456,6 @@
     </ul>
   </section>
 
-  <!-- 7. 地獄のAI + 地獄の株式会社 -->
-  <section class="slide ember">
-    <div class="kicker">おまけ</div>
-    <h2>地獄のAI 👹</h2>
-    <p class="sub">同じ仕組みで、こんな “ちょっと変わったもの” も作れます。<br>次の開催日は、また決まったらお知らせします。</p>
-    <span class="promo">🏢 地獄の株式会社 &nbsp;—&nbsp; <span class="placeholder">ひとこと宣伝</span></span>
-  </section>
-
   <!-- 8. クロージング -->
   <section class="slide">
     <div class="kicker">このあと</div>
@@ -336,7 +464,7 @@
   </section>
 </div>
 
-<div id="counter">1 / 8</div>
+<div id="counter">1 / 12</div>
 <div id="hint">← → でめくる ・ F で全画面</div>
 
 <script>
