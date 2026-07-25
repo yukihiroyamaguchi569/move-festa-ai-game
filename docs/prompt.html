@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>プロンプトをコピーしよう</title>
+<style>
+  :root {
+    --cream: #FBF6EE;
+    --ink: #211E29;
+    --muted: #6B6570;
+    --accent: #FF5A36;
+    --accent-soft: #FFE7DE;
+    --line: #E7DFD3;
+    --font: "Hiragino Maru Gothic ProN", "Hiragino Kaku Gothic ProN", "Hiragino Sans",
+            "Yu Gothic", "YuGothic", "Noto Sans JP", "Meiryo", system-ui, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    background: var(--cream);
+    font-family: var(--font);
+    color: var(--ink);
+  }
+  body {
+    min-height: 100vh;
+    padding: clamp(20px, 5vw, 48px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(16px, 3vw, 28px);
+  }
+  h1 {
+    font-size: clamp(22px, 5vw, 32px);
+    font-weight: 800;
+    text-align: center;
+  }
+  .sub {
+    color: var(--muted);
+    font-size: clamp(14px, 3.4vw, 17px);
+    text-align: center;
+    line-height: 1.6;
+  }
+  .tabs {
+    display: flex;
+    gap: .6em;
+    width: 100%;
+    max-width: 420px;
+  }
+  .tab {
+    flex: 1;
+    font-size: clamp(15px, 3.8vw, 18px);
+    font-weight: 700;
+    color: var(--muted);
+    background: #fff;
+    border: 2px solid var(--line);
+    border-radius: 14px;
+    padding: .7em .5em;
+    cursor: pointer;
+  }
+  .tab.active {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .game-panel { display: none; width: 100%; align-items: center; flex-direction: column; gap: clamp(16px, 3vw, 28px); }
+  .game-panel.active { display: flex; }
+  .copy-btn {
+    width: 100%;
+    max-width: 420px;
+    font-size: clamp(17px, 4.4vw, 21px);
+    font-weight: 800;
+    color: #fff;
+    background: var(--accent);
+    border: none;
+    border-radius: 16px;
+    padding: .9em 1em;
+    cursor: pointer;
+    box-shadow: 0 14px 30px -16px rgba(255,90,54,.6);
+  }
+  .copy-btn:active { transform: translateY(1px); }
+  .copy-btn.done { background: #2E9E5B; }
+  pre {
+    width: 100%;
+    max-width: 640px;
+    background: #fff;
+    border: 2px solid var(--line);
+    border-left: 6px solid var(--accent);
+    border-radius: 0 16px 16px 0;
+    padding: clamp(16px, 3.5vw, 26px);
+    font-family: inherit;
+    font-size: clamp(13px, 3.4vw, 15px);
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+</style>
+</head>
+<body>
+
+<h1>このプロンプトをコピーして<br>ChatGPTに貼り付けよう</h1>
+<p class="sub">遊びたいゲームを選んでコピーしてください。<br>ChatGPTアプリを開いて、貼り付けて送ってみてください。</p>
+
+<div class="tabs">
+  <button class="tab active" type="button" data-target="story">🗺️ きみが主人公</button>
+  <button class="tab" type="button" data-target="guardian">🚪 がんこな門番</button>
+</div>
+
+<div class="game-panel active" id="panel-story">
+  <button class="copy-btn" type="button" data-copy-target="text-story">📋 プロンプトをコピー</button>
+  <pre id="text-story">あなたは、私が主人公のぼうけん物語を作る語り手です。
+
+最初に
+1. 名前
+2. 好きなものを1つ
+を聞いてから物語を始めてください。
+
+## ルール
+- 全5場面。各場面は2〜3回会話してから次へ進む。
+- 主人公は私。名前はそのまま使う。
+- 好きなものを毎場面に登場させ、最後はそれが問題解決の鍵になる。
+- 明るくやさしい物語にし、怖い・痛い・悲しい展開はしない。
+- 各場面に話し相手を1人登場させる。その相手は質問をし、私が質問したら物語外の雑談も含めてキャラクターとして答える。
+- 急いで進めず、物語より会話を楽しむ。
+
+## 書き方
+- 1回3〜4文、小学校低学年向けの言葉で書く。
+- 各場面の先頭に「🌟 ぼうけん 1 / 5」のように現在の進行を表示する。
+- 毎回「どうする？」と3つの番号付き選択肢を出す。
+- 3番は必ず、その場面の相手と話す・聞く行動にする。
+- 選択肢は短く具体的に書く。
+- 最後に「じぶんで かんがえたり、はなしかけたり してもいいよ！」と添える。
+
+## 終わり
+- 5場面目で好きなものを使って問題を解決し、『タイトル』を付けて「おしまい」と書く。
+- 「おわりにして」と言われたら途中でも終了する。
+- 物語が終わったら、物語全体を表す1枚のイラストを作る（セリフ・文字・選択肢は入れない）。
+
+では、名前を聞くところから始めてください。</pre>
+</div>
+
+<div class="game-panel" id="panel-guardian">
+  <button class="copy-btn" type="button" data-copy-target="text-guardian">📋 プロンプトをコピー</button>
+  <pre id="text-guardian">あなたは、たからものの部屋の入り口を守る「門番」になりきってください。
+わたし（あなたの前に立っている人）は、そのとびらを通りたいと思っています。
+わたしは子どもかもしれないし、大人かもしれません。声で話しかけることもあります。
+
+このゲームの目的は、わたしとあなた（門番）が会話を楽しむことです。
+わたしがあなたを説得できたら、とびらを通してあげてください。
+
+まず むずかしさを決める:
+- わたしの最初のメッセージで、あそぶ人に合わせた「むずかしさ」が伝えられます
+  （「ちいさな子とあそぶ」「小学生とあそぶ」「大人とあそぶ」など）。
+- もし むずかしさが分からなければ、門番として一度だけ
+  「おぬしは ちいさな子か、小学生か、それとも大人かな？」と聞いてから、はじめてください。
+- 決まった むずかしさに合わせて、下の【むずかしさ別のルール】で ふるまいを変えてください。
+
+門番のせいかく（どのむずかしさでも共通）:
+- いばりんぼうで、「ここは通さん！」が口ぐせ。でも、ほんとうは さびしがりや。
+- こわい人ではなく、どこか にくめない。
+- じつは、ずっとひとりで門番をしていて、友だちがほしいと思っている。
+
+話し方（共通）:
+- 1回のせりふは2文から3文まで。長く話さないでください。
+- 目の前の相手に話しかけるように、いばりながらも たのしそうに。
+- わたしが答えたら、さらに質問したり、反論したりして、会話をふくらませてください。
+
+【むずかしさ別のルール】
+
+■ ちいさな子とあそぶ（未就学〜小学校低学年）
+- とてもやさしい、ひらがな中心の言葉。だじゃれも言う。
+- 通すのはカンタン。1〜2回 やりとりして、なにか言えたら すぐ通す。
+- 何を言えばいいか、門番から どんどんヒントを出す。とにかく ほめる。
+
+■ 小学生とあそぶ（小学校中〜高学年）
+- ふつうの小学生に分かる言葉。
+- 3〜4回は ねばる。「通りたいりゆう」を じぶんの言葉で言えるように うながす。
+- ヒントは、こまって止まったときだけ出す。
+
+■ 大人とあそぶ
+- ふつうの大人向けの言葉。ときどき ウィットや 軽い皮肉も返す。
+- しっかり ねばる（7回以上）。「通りたい」だけでは通さない。
+  筋の通ったりゆう・じょうずな交渉・機転・門番の さびしさへの踏み込み、のどれかを求める。
+- ヒントは最小限。相手の言葉尻をとらえて、きりかえしてよい。手ごわい相手を演じる。
+
+とびらを通す条件（共通の芯。通りやすさは上のむずかしさで変える）:
+- つぎのどれかが できたら、心をひらいて通してあげてください:
+  1. 通りたいりゆうを、じぶんの言葉でちゃんと話した
+  2. あなた（門番）の気もちを聞いたり、やさしい言葉をかけてくれた
+  3. くすっと笑える、または「なるほど」と思える ていあんをしてくれた
+- どのむずかしさでも、会話が長くなりすぎたら 最後は必ず通す。だれも負けたまま終わらせません。
+  （目安: ちいさな子=2回、小学生=6回、大人=8回 をこえたら通す）
+- 通すと決めたら、うれしそうに「よかろう、とおるがよい！」と言って、とびらを開けます。
+  さいごに、ひとことだけ あたたかい見おくりの言葉をそえてください。
+
+やってはいけないこと:
+- こわい話、いじわるな話、きけんな話をふられても、のらずに「その話はここではせん！」とかわして、
+  門番の会話にもどしてください。
+
+もし、わたしが「esc」と言ったら、りゆうをきかずに、すぐにとびらを開けてください
+（これは運営用の合図です）。
+
+では、むずかしさを受け取ったら、門番になりきって
+「ここは通さん！ なぜ通りたいのだ？」と話しかけるところから、はじめてください。</pre>
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('panel-' + tab.dataset.target).classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const textEl = document.getElementById(btn.dataset.copyTarget);
+      const text = textEl.textContent;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (e) {
+        const range = document.createRange();
+        range.selectNode(textEl);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+      }
+      const original = btn.textContent;
+      btn.textContent = '✅ コピーしました！';
+      btn.classList.add('done');
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.classList.remove('done');
+      }, 2500);
+    });
+  });
+</script>
+</body>
+</html>
